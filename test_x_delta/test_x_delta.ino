@@ -1,5 +1,5 @@
-const int dirPin = 3;
-const int stepPin = 2;
+const int dirPin = 2;
+const int stepPin = 3;
 const int pasos = 200;
 int Delaypasos;
 
