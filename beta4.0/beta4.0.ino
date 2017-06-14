@@ -20,7 +20,7 @@ int PX;
 int PY;
 int PZ;
 //posicion inicial
-const int Inicial[] = {0,0,303};
+const int Inicial[3] = {0,0,303};
 //posición actual
 int actual[3];
 //proxima posicion
@@ -44,27 +44,34 @@ void setup() {
   theta2 = 0;
   theta3 = 0;
   //pos actual
-  actual[3] = Inicial[3];
+  for (int i = 0 ; i < 3 ; i++){
+    actual[i] = Inicial[i];
+  }
 }
 
 void loop() {
   while(Serial.available()>0){
     delay(100);
-    next[1] = Serial.parseInt();//posición x
+    next[0] = Serial.parseInt();//posición x
     next[2] = Serial.parseInt();//posicion y
     int z1 = Serial.parseInt();
     next[3] = z1 - 303;//posicion z
-    
+    int x = next[0] - actual[0];
+    int y = next[1] - actual [1];
+    int z = next[2] - actual [2];
     delta_calcInverse(x,y,z);
     Serial.println(theta1);
     Serial.println(theta2);
     Serial.println(theta3);
-    //PX = theta1 * 5 / 9;
-    //PY = theta2 * 5 / 9;
-    //PZ = theta3 * 5 / 9;
-    //Serial.println(PX);
-    //Serial.println(PY);
-    //Serial.println(PZ);
+    PX = theta1 * 5 / 9;
+    PY = theta2 * 5 / 9;
+    PZ = theta3 * 5 / 9;
+    Serial.println(PX);
+    Serial.println(PY);
+    Serial.println(PZ);
+    for (int i = 0 ; i < 3 ; i++){
+      next[i]  = actual[i];
+    }
     delay(1000);
     despacito();
   }
