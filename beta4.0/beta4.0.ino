@@ -47,6 +47,19 @@ void setup() {
   for (int i = 0 ; i < 3 ; i++){
     actual[i] = Inicial[i];
   }
+  digitalWrite(dirPinX, HIGH);
+  digitalWrite(dirPinY, HIGH);
+  digitalWrite(dirPinZ, HIGH);
+  for (int i = 0; i < 80; i++){
+    digitalWrite(stepPinX, HIGH);
+    digitalWrite(stepPinY, HIGH);
+    digitalWrite(stepPinZ, HIGH);
+    delayMicroseconds(Delaypasos);
+    digitalWrite(stepPinX,LOW);
+    digitalWrite(stepPinY,LOW);
+    digitalWrite(stepPinZ,LOW);
+    delayMicroseconds(Delaypasos);
+  }
 }
 
 void loop() {
@@ -144,3 +157,14 @@ void despacito(){
        if (status == 0) status = delta_calcAngleYZ(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0, theta3);  // rotate coords to -120 deg
        return status;
    }
+/* void serialEvent(){
+  while (Serial.available()){
+    char halt = (char)Serial.read();
+    if(halt == 'stop\n'){
+      for (int B = 0; B < 3; B++){
+        next[B] = Inicial[B];
+      }
+    }
+  }
+ }*/
+
