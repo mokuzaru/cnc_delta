@@ -35,7 +35,7 @@ const int stepPinZ = 6;
 const int dirPinZ  = 7;
 const int valvula = 8;
 const int pasos = 1600;
-int Delaypasos = 1000;
+int Delaypasos = 2000;
 void setup() {
   Serial.begin(9600);
   for(int x = 2; x <  8; x++){
@@ -52,7 +52,7 @@ void setup() {
   digitalWrite(dirPinX, HIGH);
   digitalWrite(dirPinY, HIGH);
   digitalWrite(dirPinZ, HIGH);
-  for (int i = 0; i < 120; i++){
+  for (int i = 0; i < 80; i++){
     digitalWrite(stepPinX, HIGH);
     digitalWrite(stepPinY, HIGH);
     digitalWrite(stepPinZ, HIGH);
@@ -113,24 +113,36 @@ void despacito(){
   }else{
     digitalWrite(dirPinZ, HIGH);
   }
-  //mov();
+  mov();
   for (int M = 0; M < 20 ; M++){
   for(int k = 0;k < PX; k++){
     digitalWrite(stepPinX, HIGH);
+    digitalWrite(stepPinY, HIGH);
+    digitalWrite(stepPinZ, HIGH);
     delayMicroseconds(Delaypasos);
     digitalWrite(stepPinX,LOW);
+    digitalWrite(stepPinY, LOW);
+    digitalWrite(stepPinZ, LOW);
     delayMicroseconds(Delaypasos); 
   }
   for(int k = 0;k < PY; k++){
+    digitalWrite(stepPinX, HIGH);
     digitalWrite(stepPinY, HIGH);
-    delayMicroseconds(Delaypasos);
-    digitalWrite(stepPinY,LOW);
-    delayMicroseconds(Delaypasos); 
-  }
-  for(int k = 0;k < PZ; k++){
     digitalWrite(stepPinZ, HIGH);
     delayMicroseconds(Delaypasos);
-    digitalWrite(stepPinZ,LOW);
+    digitalWrite(stepPinX,LOW);
+    digitalWrite(stepPinY, LOW);
+    digitalWrite(stepPinZ, LOW);
+    delayMicroseconds(Delaypasos);
+  }
+  for(int k = 0;k < PZ; k++){
+    digitalWrite(stepPinX, HIGH);
+    digitalWrite(stepPinY, HIGH);
+    digitalWrite(stepPinZ, HIGH);
+    delayMicroseconds(Delaypasos);
+    digitalWrite(stepPinX,LOW);
+    digitalWrite(stepPinY, LOW);
+    digitalWrite(stepPinZ, LOW);
     delayMicroseconds(Delaypasos); 
   }
   }
@@ -183,11 +195,9 @@ void serialEvent(){
     switch (suck){
       case('S'):
         digitalWrite(valvula, HIGH);
-        Serial.print("solto");
         break;
       case('F'):
         digitalWrite(valvula, LOW);
-        Serial.print("succiona");
         break;
     }
   }
