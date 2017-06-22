@@ -145,7 +145,7 @@ void mov (){//determinar quien tiene mayor numero de pasos
     aux = PY;
     PY = PX;
     PX = aux;
-  }else if (PY < PZ){
+  }else if (PY > PZ){
     aux = PY;
     PY = PZ;
     PZ = aux;

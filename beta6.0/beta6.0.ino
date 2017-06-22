@@ -104,8 +104,33 @@ void loop() {
       Serial.println(PX);
       Serial.println(PY);
       Serial.println(PZ);
+      if(PX < 0){
+        digitalWrite(dirPinX, LOW);
+        Serial.println("dirx negado");
+      }else{
+        digitalWrite(dirPinX, HIGH);
+        Serial.println("dirx posi");
+      }
+      if(PY < 0){
+        digitalWrite(dirPinY, LOW);
+        Serial.println("diry neg");
+      }else{
+        digitalWrite(dirPinY, HIGH);
+        Serial.println("diry posi");
+      }
+      if(PZ < 0){
+        digitalWrite(dirPinZ, LOW);
+        Serial.println("dirz nega");
+      }else{
+        digitalWrite(dirPinZ, HIGH);
+        Serial.println("dirz, posi");
+      }
+      movMotors();
     }
   }
+}
+void movMotors(){
+  
 }
 int delta_calcAngleYZ(float x0, float y0, float z0, float &theta) {
      float y1 = -0.5 * 0.57735 * f;
