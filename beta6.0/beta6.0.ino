@@ -19,6 +19,7 @@ float theta3;
 int PX;
 int PY;
 int PZ;
+
 //Pines de salida a drivers
 const int stepPinX = 2;
 const int dirPinX  = 3;
@@ -130,7 +131,64 @@ void loop() {
   }
 }
 void movMotors(){
-  
+  //decidir que motor se mueve más y menos para la sincronización
+  int P[3] = {PX, PY, PZ};
+  int S[3] = {0, 0, 0};
+  int A, B;
+  int suma = PX + PY + PZ;
+  if (suma != 0){ // Si no da ningun paso no tiene sentido seguir
+    if(P[0] > P[1] && P[0] > P [2]){
+      S[2] = P[0];
+      A = stepPinX;
+    }else if(P[1] > P[2]){
+      S[2] = P[1];
+      A = stepPinY;
+    }else{
+      S[2] = P[2];
+      A = stepPinZ;
+    }
+    if(P[0] < P[1] && P[0] < P[2]){
+      S[0] = P[0];
+      B = stepPinX;
+    }else if(P[1] < P[2]){
+      S[0] = P[1];
+      B = stepPinY;
+    }else{
+      S[0] = P[2];
+      B = stepPinZ;
+    }
+    if(P[0] != S[0] && P[0] != S[2]){
+      S[1] = P[0];
+    }else if(P[1] != S[0] && P[1] != S[2]){
+      S[1] = P[1];
+    }else{
+      S[1] = P[2];
+    }
+  }
+  //Envio de pulso al driver
+  for (int i = 0; i < S[0];i++){ //menor numero de pasos
+    digitalWrite(stepPinX, HIGH);
+    digitalWrite(stepPinY, HIGH);
+    digitalWrite(stepPinZ, HIGH);
+    delayMicroseconds(Delaypasos);
+    digitalWrite(stepPinX, LOW);
+    digitalWrite(stepPinY, LOW);
+    digitalWrite(stepPinZ, LOW);
+  }
+  for (int i = 0;i < S[1]; i++){ //solo 2 motores a numero medio de pasos
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    delayMicroseconds(Delaypasos);
+    digitalWrite(A, LOW);
+    digitalWrite(B, LOW);
+    delayMicroseconds(Delaypasos);
+  }
+  for(int i = 0; i < S[2]; i++){ // Solo el motor con mayor numero de pasos
+    digitalWrite(A , HIGH);
+    delayMicroseconds(Delaypasos);
+    digitalWrite(A, LOW);
+    delayMicroseconds(Delaypasos);
+  }
 }
 int delta_calcAngleYZ(float x0, float y0, float z0, float &theta) {
      float y1 = -0.5 * 0.57735 * f;
