@@ -19,7 +19,6 @@ float theta3;
 int PX;
 int PY;
 int PZ;
-
 //Pines de salida a drivers
 const int stepPinX = 2;
 const int dirPinX  = 3;
@@ -32,7 +31,7 @@ const int pasos = 1600; // por cada paso equivale a 0.225 grados, por estar conf
 int Delaypasos = 1000;//Velocidad de los motores
 void setup() {
   Serial.begin(9600);
-  while(!Serial){//Espera la conección por puerto serial este activada
+  //while(!Serial){//Espera la conección por puerto serial este activada
   Serial.println("Iniciando");
   Serial.println("Espera un momento");
   for(int x = 2; x <  8; x++){ //Fuerza los puertos como salidas
@@ -83,7 +82,7 @@ void setup() {
     delayMicroseconds(Delaypasos);
   }
   Serial.println("Puede ingresar coordenadas");
-}}
+}
 
 void loop() {
   if(Serial.available()>0){ //pregunta si se a ingresado algo en el puerto serial
@@ -91,7 +90,7 @@ void loop() {
     float y = Serial.parseFloat();
     float z = Serial.parseFloat();
     z -= 303;
-    if ( x*y*z != 0){ //elimina valores falsos del serial
+    //if ( x*y*z != 0){ //elimina valores falsos del serial
       Serial.println(x);
       Serial.println(y);
       Serial.println(z);
@@ -127,7 +126,7 @@ void loop() {
         Serial.println("dirz, posi");
       }
       movMotors();
-    }
+    
   }
 }
 void movMotors(){
@@ -175,6 +174,7 @@ void movMotors(){
     digitalWrite(stepPinY, LOW);
     digitalWrite(stepPinZ, LOW);
   }
+  S[1] = S[1] - S[0];
   for (int i = 0;i < S[1]; i++){ //solo 2 motores a numero medio de pasos
     digitalWrite(A, HIGH);
     digitalWrite(B, HIGH);
@@ -183,6 +183,7 @@ void movMotors(){
     digitalWrite(B, LOW);
     delayMicroseconds(Delaypasos);
   }
+  S[2] = S[2] - S[1];
   for(int i = 0; i < S[2]; i++){ // Solo el motor con mayor numero de pasos
     digitalWrite(A , HIGH);
     delayMicroseconds(Delaypasos);
