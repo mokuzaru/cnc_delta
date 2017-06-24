@@ -8,14 +8,16 @@ const int dirPinZ  = 7;
 const int valvula = 8;
 const int pasos = 1600; // por cada paso equivale a 0.225 grados, por estar configurado a 1/8 "M2"
 int Delaypasos = 5000;//Velocidad de los motores
-const int z = 25;
+const int z = 55;
 void setup() {
   Serial.begin(9600);
   Serial.println("Iniciando");
   Serial.println("Espera un momento");
-  for (int x = 2; x < 8; x++){
+  for (int x = 2; x < 9; x++){
     pinMode(x, OUTPUT);
   }
+  digitalWrite(valvula, HIGH); //valvula empieza abierta
+  delay(250);
   Serial.println("probando motores");
   digitalWrite(dirPinX, HIGH);
   digitalWrite(dirPinY, HIGH);
@@ -103,6 +105,7 @@ void loop() {
         digitalWrite(stepPinY, LOW);
         digitalWrite(stepPinZ, LOW);
       }
+      digitalWrite(valvula, LOW);
       delay(500);
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
@@ -144,8 +147,10 @@ void loop() {
         digitalWrite(stepPinZ , LOW);
         delayMicroseconds(Delaypasos);
       }
-      delay(1000);
-      //mov a x = -120 y = 0 Z = 0
+      delay(500);
+      digitalWrite(valvula, HIGH);
+      delay(500);
+      /*//mov a x = -120 y = 0 Z = 0
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
       digitalWrite(dirPinZ, LOW);
@@ -185,6 +190,7 @@ void loop() {
         digitalWrite(stepPinY, LOW);
         digitalWrite(stepPinZ, LOW);
       }
+      digitalWrite(valvula, LOW);
       delay(500);
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
@@ -226,7 +232,9 @@ void loop() {
         digitalWrite(stepPinY , LOW);
         delayMicroseconds(Delaypasos);
       }
-      delay(1000);
+      delay(500);
+      digitalWrite(valvula,HIGH);
+      delay(500);*/
       //Mover a x = 110 y = 0 z = 0
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
@@ -259,6 +267,7 @@ void loop() {
         digitalWrite(stepPinY, LOW);
         digitalWrite(stepPinZ, LOW);
       }
+      digitalWrite(valvula, LOW);
       delay(500);
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
@@ -292,7 +301,9 @@ void loop() {
         digitalWrite(stepPinX , LOW);
         delayMicroseconds(Delaypasos);
       }
-      delay(1000);
+      delay(500);
+      digitalWrite(valvula, HIGH);
+      delay(500);
       //mover a x = -110 y = 0 z = 0
       digitalWrite(dirPinX, LOW);
       digitalWrite(dirPinY, HIGH);
@@ -327,6 +338,7 @@ void loop() {
         digitalWrite(stepPinY, LOW);
         digitalWrite(stepPinZ, LOW);
       }
+      digitalWrite(valvula, LOW);
       delay(500);
       digitalWrite(dirPinX, HIGH);
       digitalWrite(dirPinY, HIGH);
@@ -362,6 +374,8 @@ void loop() {
         digitalWrite(stepPinZ, LOW);
         delayMicroseconds(Delaypasos);
       }
+      digitalWrite(valvula, HIGH);
+      delay(500);
       Serial.println("Otra vez? :3");
   }
  }

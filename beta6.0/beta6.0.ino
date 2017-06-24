@@ -28,7 +28,7 @@ const int stepPinZ = 6;
 const int dirPinZ  = 7;
 const int valvula = 8;
 const int pasos = 1600; // por cada paso equivale a 0.225 grados, por estar configurado a 1/8 "M2"
-int Delaypasos = 1000;//Velocidad de los motores
+int Delaypasos = 5000;//Velocidad de los motores
 void setup() {
   Serial.begin(9600);
   //while(!Serial){//Espera la conección por puerto serial este activada
@@ -45,7 +45,7 @@ void setup() {
   digitalWrite(dirPinX, HIGH);
   digitalWrite(dirPinY, HIGH);
   digitalWrite(dirPinZ, HIGH);
-  for (int i = 0; i < 200; i++){
+  for (int i = 0; i < 100; i++){
     digitalWrite(stepPinX, HIGH);
     digitalWrite(stepPinY, HIGH);
     digitalWrite(stepPinZ, HIGH);
@@ -71,7 +71,7 @@ void setup() {
   digitalWrite(stepPinX, HIGH);
   digitalWrite(stepPinY, HIGH);
   digitalWrite(stepPinZ, HIGH);
-  for (int i = 0; i < 60; i++){
+  for (int i = 0; i < 100; i++){
     digitalWrite(stepPinX, HIGH);
     digitalWrite(stepPinY, HIGH);
     digitalWrite(stepPinZ, HIGH);
