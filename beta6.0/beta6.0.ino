@@ -81,6 +81,7 @@ void setup() {
     digitalWrite(stepPinZ,LOW);
     delayMicroseconds(Delaypasos);
   }
+  digitalWrite(valvula, HIGH);
   Serial.println("Puede ingresar coordenadas");
 }
 
